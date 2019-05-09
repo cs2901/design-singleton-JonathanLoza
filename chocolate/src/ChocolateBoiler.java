@@ -1,10 +1,28 @@
+//package multithread;
+//package com.mkyong;
+
+
 public class ChocolateBoiler {
+    private static Object mutex =new Object();
     private boolean empty;
     private boolean boiled;
-
-    public ChocolateBoiler() {
+    private static ChocolateBoiler instance;
+    private ChocolateBoiler() {
         empty = true;
         boiled = false;
+    }
+
+    public static ChocolateBoiler getInstance(){
+        synchronized(mutex) {
+            if (instance == null) {
+                System.out.println("creando intancia");
+                instance = new ChocolateBoiler();
+
+            } else {
+                System.out.println("Ya existe");
+            }
+        }
+        return instance;
     }
 
     public void fill(){
@@ -35,4 +53,11 @@ public class ChocolateBoiler {
     public boolean isBoiled(){
         return boiled;
     }
+
+   /* public static void main(String[] args) {
+
+        ChocolateBoiler instance2= ChocolateBoiler.getInstance();
+    }*/
 }
+
+
